@@ -13,7 +13,6 @@
 ::
 ::    You should have received a copy of the GNU Affero General Public License
 ::    along with this program.  If not, see <https://www.gnu.org/licenses/>.
-
 @ECHO off
 cd /d %~dp0
 CLS
@@ -27,23 +26,23 @@ ECHO #                             Updater by TigerKing                         
 ECHO #                                                                             #
 ECHO #          https://forum.xda-developers.com/showthread.php?t=2588979          #
 ECHO #                                                                             #
-ECHO #              (�����X�V���̓c�[�����ēx���s���Ă�������)                     #
+ECHO #              (自動更新時はツールを再度実行してください)                     #
 ECHO #                                                                             #
 ECHO ###############################################################################
 IF EXIST %USERPROFILE%\Desktop\ADB-Installer-Updater-Windows RMDIR /S /Q %USERPROFILE%\Desktop\ADB-Installer-Updater-Windows >NUL
 md "%USERPROFILE%\Desktop\ADB-Installer-Updater-Windows"
 ECHO(
-ECHO platform-tools-latest-windows.zip���_�E�����[�h���ł�...
+ECHO platform-tools-latest-windows.zipをダウンロード中です...
 powershell -Command "Start-BitsTransfer -Source https://dl.google.com/android/repository/platform-tools-latest-windows.zip -Destination %USERPROFILE%\Desktop\ADB-Installer-Updater-Windows\platform-tools-latest-windows.zip"
-ECHO �t�@�C����W�J���ł�...
+ECHO ファイルを展開中です...
 powershell -Command "Expand-Archive -Force %USERPROFILE%\Desktop\ADB-Installer-Updater-Windows\platform-tools-latest-windows.zip %USERPROFILE%\Desktop\ADB-Installer-Updater-Windows"
 RENAME "%USERPROFILE%\Desktop\ADB-Installer-Updater-Windows\platform-tools" "ADB"
 :: Edits - only Google USB Driver Package link below when update available... change from r13 to r14, r15 etc.
 :: Edits starts here
 ECHO(
-ECHO latest_usb_driver_windows.zip���_�E�����[�h���ł�...
+ECHO latest_usb_driver_windows.zipをダウンロード中です...
 powershell -Command "Start-BitsTransfer -Source https://dl.google.com/android/repository/latest_usb_driver_windows.zip -Destination %USERPROFILE%\Desktop\ADB-Installer-Updater-Windows\latest_usb_driver_windows.zip"
-ECHO �t�@�C����W�J���ł�...
+ECHO ファイルを展開中です...
 powershell -Command "Expand-Archive -Force %USERPROFILE%\Desktop\ADB-Installer-Updater-Windows\latest_usb_driver_windows.zip %USERPROFILE%\Desktop\ADB-Installer-Updater-Windows"
 :: Edits ends here..
 RENAME "%USERPROFILE%\Desktop\ADB-Installer-Updater-Windows\usb_driver" "Driver"
@@ -55,29 +54,29 @@ XCOPY XP\ %USERPROFILE%\Desktop\ADB-Installer-Updater-Windows\XP\ /e /y /q /i 1>
 
 :Q1
 ECHO(
-SET /P ANSWER=ADB��Fastboot�̃C���X�g�[���܂��̓A�b�v�f�[�g�����s���܂���? (Y/N) 
+SET /P ANSWER=ADBとFastbootのインストールまたはアップデートを実行しますか? (Y/N) 
  IF /i {%ANSWER%}=={y} (GOTO Q2)
  IF /i {%ANSWER%}=={yes} (GOTO Q2)
  IF /i {%ANSWER%}=={n} (GOTO DRV)
  IF /i {%ANSWER%}=={no} (GOTO DRV)
 ECHO(
-ECHO �������Ԉ���Ă܂�! �uY/N�v���uYes/No�v�œ����Ă��������B
+ECHO 答えが間違ってます! 「Y/N」か「Yes/No」で答えてください。
 GOTO Q1
 
 :Q2
 ECHO(
-SET /P ANSWER=ADB���V�X�e���S�̂ɃC���X�g�[���܂��̓A�b�v�f�[�g�����s���܂���? (Y/N) 
+SET /P ANSWER=ADBをシステム全体にインストールまたはアップデートを実行しますか? (Y/N) 
  IF /i {%ANSWER%}=={y} (GOTO ADB_S)
  IF /i {%ANSWER%}=={yes} (GOTO ADB_S)
  IF /i {%ANSWER%}=={n} (GOTO ADB_U)
  IF /i {%ANSWER%}=={no} (GOTO ADB_U)
 ECHO(
-ECHO �������Ԉ���Ă܂�! �uY/N�v���uYes/No�v�œ����Ă��������B
+ECHO 答えが間違ってます! 「Y/N」か「Yes/No」で答えてください。
 GOTO Q2
 
 :ADB_U
 ECHO(
-ECHO ADB��Fastboot���C���X�g�[���܂��̓A�b�v�f�[�g���ł�... (���݂̃��[�U�[�̂�)
+ECHO ADBとFastbootをインストールまたはアップデート中です... (現在のユーザーのみ)
 ECHO(
 ADB kill-server > NUL 2>&1
 
@@ -97,7 +96,7 @@ GOTO DRV
 
 :ADB_S
 ECHO(
-ECHO ADB��Fastboot���C���X�g�[���܂��̓A�b�v�f�[�g���ł�... (�V�X�e���S��)
+ECHO ADBとFastbootをインストールまたはアップデート中です... (システム全体)
 ECHO(
 ADB kill-server > NUL 2>&1
 
@@ -117,12 +116,12 @@ SETX PATH "%PATH%;%SYSTEMDRIVE%\ADB" /m 2>>%USERPROFILE%\Desktop\adb-error.log
 :DRV
 DEL PATH.TMP
 ECHO(
-SET /P ANSWER=�f�o�C�X�h���C�o�[���C���X�g�[���܂��̓A�b�v�f�[�g�����s���܂���? (Y/N) 
+SET /P ANSWER=デバイスドライバーをインストールまたはアップデートを実行しますか? (Y/N) 
  IF /i {%ANSWER%}=={y} (GOTO DRIVER)
  IF /i {%ANSWER%}=={yes} (GOTO DRIVER)
  IF /i {%ANSWER%}=={n} (GOTO FINISH)
  IF /i {%ANSWER%}=={no} (GOTO FINISH)
-ECHO �������Ԉ���Ă܂�! �uY/N�v���uYes/No�v�œ����Ă��������B
+ECHO 答えが間違ってます! 「Y/N」か「Yes/No」で答えてください。
 GOTO DRV
 
 :DRIVER
@@ -130,22 +129,22 @@ IF DEFINED programfiles(x86) GOTO x64
 
 :x86
 ECHO(
-ECHO 32-bit�h���C�o�[���C���X�g�[���܂��̓A�b�v�f�[�g���ł�...
-ECHO �h���C�o�[�̃C���X�g�[���܂��̓A�b�v�f�[�g�𑱍s���Ă�������...
+ECHO 32-bitドライバーをインストールまたはアップデート中です...
+ECHO ドライバーのインストールまたはアップデートを続行してください...
 PING localhost -n 1 >NUL
 START /wait %USERPROFILE%\Desktop\ADB-Installer-Updater-Windows\Driver\DPInst_x86 /f 2>>%USERPROFILE%\Desktop\adb-error.log
 GOTO FINISH
 
 :x64
 ECHO(
-ECHO 64-bit�h���C�o�[���C���X�g�[���܂��̓A�b�v�f�[�g���ł�...
-ECHO �h���C�o�[�̃C���X�g�[���܂��̓A�b�v�f�[�g�𑱍s���Ă�������...
+ECHO 64-bitドライバーをインストールまたはアップデート中です...
+ECHO ドライバーのインストールまたはアップデートを続行してください...
 PING localhost -n 1 >NUL
 START /wait %USERPROFILE%\Desktop\ADB-Installer-Updater-Windows\Driver\DPInst_x64 /f 2>>%USERPROFILE%\Desktop\adb-error.log
 
 :FINISH
 ECHO(
-ECHO ���ׂĊ������܂���!
+ECHO すべて完了しました!
 RMDIR /s /q "%USERPROFILE%\Desktop\ADB-Installer-Updater-Windows\" >NUL
 CALL :LOG %USERPROFILE%\Desktop\adb-error.log
 
