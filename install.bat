@@ -1,3 +1,18 @@
+::    15-Seconds-Online-ADB-Installer-and-Updater-jp
+::    Copyright (C) 2023  reindex-ot
+::
+::    This program is free software: you can redistribute it and/or modify
+::    it under the terms of the GNU Affero General Public License as published
+::    by the Free Software Foundation, either version 3 of the License, or
+::    (at your option) any later version.
+::
+::    This program is distributed in the hope that it will be useful,
+::    but WITHOUT ANY WARRANTY; without even the implied warranty of
+::    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+::    GNU Affero General Public License for more details.
+::
+::    You should have received a copy of the GNU Affero General Public License
+::    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 @ECHO off
 cd /d %~dp0
 CLS
@@ -11,23 +26,23 @@ ECHO #                             Updater by TigerKing                         
 ECHO #                                                                             #
 ECHO #          https://forum.xda-developers.com/showthread.php?t=2588979          #
 ECHO #                                                                             #
-ECHO #              (Ž©“®XVŽž‚Íƒc[ƒ‹‚ðÄ“xŽÀs‚µ‚Ä‚­‚¾‚³‚¢)                     #
+ECHO #              (è‡ªå‹•æ›´æ–°æ™‚ã¯ãƒ„ãƒ¼ãƒ«ã‚’å†åº¦å®Ÿè¡Œã—ã¦ãã ã•ã„)                     #
 ECHO #                                                                             #
 ECHO ###############################################################################
 IF EXIST %USERPROFILE%\Desktop\ADB-Installer-Updater-Windows RMDIR /S /Q %USERPROFILE%\Desktop\ADB-Installer-Updater-Windows >NUL
 md "%USERPROFILE%\Desktop\ADB-Installer-Updater-Windows"
 ECHO(
-ECHO platform-tools-latest-windows.zip‚ðƒ_ƒEƒ“ƒ[ƒh’†‚Å‚·...
+ECHO platform-tools-latest-windows.zipã‚’ãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰ä¸­ã§ã™...
 powershell -Command "Start-BitsTransfer -Source https://dl.google.com/android/repository/platform-tools-latest-windows.zip -Destination %USERPROFILE%\Desktop\ADB-Installer-Updater-Windows\platform-tools-latest-windows.zip"
-ECHO ƒtƒ@ƒCƒ‹‚ð“WŠJ’†‚Å‚·...
+ECHO ãƒ•ã‚¡ã‚¤ãƒ«ã‚’å±•é–‹ä¸­ã§ã™...
 powershell -Command "Expand-Archive -Force %USERPROFILE%\Desktop\ADB-Installer-Updater-Windows\platform-tools-latest-windows.zip %USERPROFILE%\Desktop\ADB-Installer-Updater-Windows"
 RENAME "%USERPROFILE%\Desktop\ADB-Installer-Updater-Windows\platform-tools" "ADB"
 :: Edits - only Google USB Driver Package link below when update available... change from r13 to r14, r15 etc.
 :: Edits starts here
 ECHO(
-ECHO latest_usb_driver_windows.zip‚ðƒ_ƒEƒ“ƒ[ƒh’†‚Å‚·...
+ECHO latest_usb_driver_windows.zipã‚’ãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰ä¸­ã§ã™...
 powershell -Command "Start-BitsTransfer -Source https://dl.google.com/android/repository/latest_usb_driver_windows.zip -Destination %USERPROFILE%\Desktop\ADB-Installer-Updater-Windows\latest_usb_driver_windows.zip"
-ECHO ƒtƒ@ƒCƒ‹‚ð“WŠJ’†‚Å‚·...
+ECHO ãƒ•ã‚¡ã‚¤ãƒ«ã‚’å±•é–‹ä¸­ã§ã™...
 powershell -Command "Expand-Archive -Force %USERPROFILE%\Desktop\ADB-Installer-Updater-Windows\latest_usb_driver_windows.zip %USERPROFILE%\Desktop\ADB-Installer-Updater-Windows"
 :: Edits ends here..
 RENAME "%USERPROFILE%\Desktop\ADB-Installer-Updater-Windows\usb_driver" "Driver"
@@ -39,29 +54,29 @@ XCOPY XP\ %USERPROFILE%\Desktop\ADB-Installer-Updater-Windows\XP\ /e /y /q /i 1>
 
 :Q1
 ECHO(
-SET /P ANSWER=ADB‚ÆFastboot‚ÌƒCƒ“ƒXƒg[ƒ‹‚Ü‚½‚ÍƒAƒbƒvƒf[ƒg‚ðŽÀs‚µ‚Ü‚·‚©? (Y/N) 
+SET /P ANSWER=ADBã¨Fastbootã®ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã¾ãŸã¯ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆã‚’å®Ÿè¡Œã—ã¾ã™ã‹? (Y/N) 
  IF /i {%ANSWER%}=={y} (GOTO Q2)
  IF /i {%ANSWER%}=={yes} (GOTO Q2)
  IF /i {%ANSWER%}=={n} (GOTO DRV)
  IF /i {%ANSWER%}=={no} (GOTO DRV)
 ECHO(
-ECHO “š‚¦‚ªŠÔˆá‚Á‚Ä‚Ü‚·! uY/Nv‚©uYes/Nov‚Å“š‚¦‚Ä‚­‚¾‚³‚¢B
+ECHO ç­”ãˆãŒé–“é•ã£ã¦ã¾ã™! ã€ŒY/Nã€ã‹ã€ŒYes/Noã€ã§ç­”ãˆã¦ãã ã•ã„ã€‚
 GOTO Q1
 
 :Q2
 ECHO(
-SET /P ANSWER=ADB‚ðƒVƒXƒeƒ€‘S‘Ì‚ÉƒCƒ“ƒXƒg[ƒ‹‚Ü‚½‚ÍƒAƒbƒvƒf[ƒg‚ðŽÀs‚µ‚Ü‚·‚©? (Y/N) 
+SET /P ANSWER=ADBã‚’ã‚·ã‚¹ãƒ†ãƒ å…¨ä½“ã«ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã¾ãŸã¯ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆã‚’å®Ÿè¡Œã—ã¾ã™ã‹? (Y/N) 
  IF /i {%ANSWER%}=={y} (GOTO ADB_S)
  IF /i {%ANSWER%}=={yes} (GOTO ADB_S)
  IF /i {%ANSWER%}=={n} (GOTO ADB_U)
  IF /i {%ANSWER%}=={no} (GOTO ADB_U)
 ECHO(
-ECHO “š‚¦‚ªŠÔˆá‚Á‚Ä‚Ü‚·! uY/Nv‚©uYes/Nov‚Å“š‚¦‚Ä‚­‚¾‚³‚¢B
+ECHO ç­”ãˆãŒé–“é•ã£ã¦ã¾ã™! ã€ŒY/Nã€ã‹ã€ŒYes/Noã€ã§ç­”ãˆã¦ãã ã•ã„ã€‚
 GOTO Q2
 
 :ADB_U
 ECHO(
-ECHO ADB‚ÆFastboot‚ðƒCƒ“ƒXƒg[ƒ‹‚Ü‚½‚ÍƒAƒbƒvƒf[ƒg’†‚Å‚·... (Œ»Ý‚Ìƒ†[ƒU[‚Ì‚Ý)
+ECHO ADBã¨Fastbootã‚’ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã¾ãŸã¯ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆä¸­ã§ã™... (ç¾åœ¨ã®ãƒ¦ãƒ¼ã‚¶ãƒ¼ã®ã¿)
 ECHO(
 ADB kill-server > NUL 2>&1
 
@@ -81,7 +96,7 @@ GOTO DRV
 
 :ADB_S
 ECHO(
-ECHO ADB‚ÆFastboot‚ðƒCƒ“ƒXƒg[ƒ‹‚Ü‚½‚ÍƒAƒbƒvƒf[ƒg’†‚Å‚·... (ƒVƒXƒeƒ€‘S‘Ì)
+ECHO ADBã¨Fastbootã‚’ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã¾ãŸã¯ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆä¸­ã§ã™... (ã‚·ã‚¹ãƒ†ãƒ å…¨ä½“)
 ECHO(
 ADB kill-server > NUL 2>&1
 
@@ -101,12 +116,12 @@ SETX PATH "%PATH%;%SYSTEMDRIVE%\ADB" /m 2>>%USERPROFILE%\Desktop\adb-error.log
 :DRV
 DEL PATH.TMP
 ECHO(
-SET /P ANSWER=ƒfƒoƒCƒXƒhƒ‰ƒCƒo[‚ðƒCƒ“ƒXƒg[ƒ‹‚Ü‚½‚ÍƒAƒbƒvƒf[ƒg‚ðŽÀs‚µ‚Ü‚·‚©? (Y/N) 
+SET /P ANSWER=ãƒ‡ãƒã‚¤ã‚¹ãƒ‰ãƒ©ã‚¤ãƒãƒ¼ã‚’ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã¾ãŸã¯ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆã‚’å®Ÿè¡Œã—ã¾ã™ã‹? (Y/N) 
  IF /i {%ANSWER%}=={y} (GOTO DRIVER)
  IF /i {%ANSWER%}=={yes} (GOTO DRIVER)
  IF /i {%ANSWER%}=={n} (GOTO FINISH)
  IF /i {%ANSWER%}=={no} (GOTO FINISH)
-ECHO “š‚¦‚ªŠÔˆá‚Á‚Ä‚Ü‚·! uY/Nv‚©uYes/Nov‚Å“š‚¦‚Ä‚­‚¾‚³‚¢B
+ECHO ç­”ãˆãŒé–“é•ã£ã¦ã¾ã™! ã€ŒY/Nã€ã‹ã€ŒYes/Noã€ã§ç­”ãˆã¦ãã ã•ã„ã€‚
 GOTO DRV
 
 :DRIVER
@@ -114,22 +129,22 @@ IF DEFINED programfiles(x86) GOTO x64
 
 :x86
 ECHO(
-ECHO 32-bitƒhƒ‰ƒCƒo[‚ðƒCƒ“ƒXƒg[ƒ‹‚Ü‚½‚ÍƒAƒbƒvƒf[ƒg’†‚Å‚·...
-ECHO ƒhƒ‰ƒCƒo[‚ÌƒCƒ“ƒXƒg[ƒ‹‚Ü‚½‚ÍƒAƒbƒvƒf[ƒg‚ð‘±s‚µ‚Ä‚­‚¾‚³‚¢...
+ECHO 32-bitãƒ‰ãƒ©ã‚¤ãƒãƒ¼ã‚’ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã¾ãŸã¯ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆä¸­ã§ã™...
+ECHO ãƒ‰ãƒ©ã‚¤ãƒãƒ¼ã®ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã¾ãŸã¯ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆã‚’ç¶šè¡Œã—ã¦ãã ã•ã„...
 PING localhost -n 1 >NUL
 START /wait %USERPROFILE%\Desktop\ADB-Installer-Updater-Windows\Driver\DPInst_x86 /f 2>>%USERPROFILE%\Desktop\adb-error.log
 GOTO FINISH
 
 :x64
 ECHO(
-ECHO 64-bitƒhƒ‰ƒCƒo[‚ðƒCƒ“ƒXƒg[ƒ‹‚Ü‚½‚ÍƒAƒbƒvƒf[ƒg’†‚Å‚·...
-ECHO ƒhƒ‰ƒCƒo[‚ÌƒCƒ“ƒXƒg[ƒ‹‚Ü‚½‚ÍƒAƒbƒvƒf[ƒg‚ð‘±s‚µ‚Ä‚­‚¾‚³‚¢...
+ECHO 64-bitãƒ‰ãƒ©ã‚¤ãƒãƒ¼ã‚’ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã¾ãŸã¯ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆä¸­ã§ã™...
+ECHO ãƒ‰ãƒ©ã‚¤ãƒãƒ¼ã®ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã¾ãŸã¯ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆã‚’ç¶šè¡Œã—ã¦ãã ã•ã„...
 PING localhost -n 1 >NUL
 START /wait %USERPROFILE%\Desktop\ADB-Installer-Updater-Windows\Driver\DPInst_x64 /f 2>>%USERPROFILE%\Desktop\adb-error.log
 
 :FINISH
 ECHO(
-ECHO ‚·‚×‚ÄŠ®—¹‚µ‚Ü‚µ‚½!
+ECHO ã™ã¹ã¦å®Œäº†ã—ã¾ã—ãŸ!
 RMDIR /s /q "%USERPROFILE%\Desktop\ADB-Installer-Updater-Windows\" >NUL
 CALL :LOG %USERPROFILE%\Desktop\adb-error.log
 
