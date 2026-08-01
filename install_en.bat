@@ -34,17 +34,27 @@ IF EXIST %USERPROFILE%\Desktop\ADB-Installer-Updater-Windows RMDIR /S /Q %USERPR
 md "%USERPROFILE%\Desktop\ADB-Installer-Updater-Windows"
 ECHO(
 ECHO Downloading platform-tools-latest-windows.zip...
-powershell -Command "Start-BitsTransfer -Source https://dl.google.com/android/repository/platform-tools-latest-windows.zip -Destination %USERPROFILE%\Desktop\ADB-Installer-Updater-Windows\platform-tools-latest-windows.zip"
+powershell -NoProfile -Command "[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; try { Invoke-WebRequest -Uri 'https://dl.google.com/android/repository/platform-tools-latest-windows.zip' -OutFile '%USERPROFILE%\Desktop\ADB-Installer-Updater-Windows\platform-tools-latest-windows.zip' -UseBasicParsing } catch { Write-Host $_.Exception.Message; exit 1 }"
+IF NOT EXIST "%USERPROFILE%\Desktop\ADB-Installer-Updater-Windows\platform-tools-latest-windows.zip" (
+    ECHO Download failed. Please check your network connection.
+    PAUSE
+    EXIT /B 1
+)
 ECHO Extracting...
-powershell -Command "Expand-Archive -Force %USERPROFILE%\Desktop\ADB-Installer-Updater-Windows\platform-tools-latest-windows.zip %USERPROFILE%\Desktop\ADB-Installer-Updater-Windows"
+powershell -NoProfile -Command "Expand-Archive -Force '%USERPROFILE%\Desktop\ADB-Installer-Updater-Windows\platform-tools-latest-windows.zip' '%USERPROFILE%\Desktop\ADB-Installer-Updater-Windows'"
 RENAME "%USERPROFILE%\Desktop\ADB-Installer-Updater-Windows\platform-tools" "ADB"
 :: Edits - only Google USB Driver Package link below when update available... change from r13 to r14, r15 etc.
 :: Edits starts here
 ECHO(
 ECHO Downloading latest_usb_driver_windows.zip...
-powershell -Command "Start-BitsTransfer -Source https://dl.google.com/android/repository/latest_usb_driver_windows.zip -Destination %USERPROFILE%\Desktop\ADB-Installer-Updater-Windows\latest_usb_driver_windows.zip"
+powershell -NoProfile -Command "[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; try { Invoke-WebRequest -Uri 'https://dl.google.com/android/repository/latest_usb_driver_windows.zip' -OutFile '%USERPROFILE%\Desktop\ADB-Installer-Updater-Windows\latest_usb_driver_windows.zip' -UseBasicParsing } catch { Write-Host $_.Exception.Message; exit 1 }"
+IF NOT EXIST "%USERPROFILE%\Desktop\ADB-Installer-Updater-Windows\latest_usb_driver_windows.zip" (
+    ECHO Download failed. Please check your network connection.
+    PAUSE
+    EXIT /B 1
+)
 ECHO Extracting...
-powershell -Command "Expand-Archive -Force %USERPROFILE%\Desktop\ADB-Installer-Updater-Windows\latest_usb_driver_windows.zip %USERPROFILE%\Desktop\ADB-Installer-Updater-Windows"
+powershell -NoProfile -Command "Expand-Archive -Force '%USERPROFILE%\Desktop\ADB-Installer-Updater-Windows\latest_usb_driver_windows.zip' '%USERPROFILE%\Desktop\ADB-Installer-Updater-Windows'"
 :: Edits ends here..
 RENAME "%USERPROFILE%\Desktop\ADB-Installer-Updater-Windows\usb_driver" "Driver"
 
