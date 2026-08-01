@@ -1,18 +1,3 @@
-::    15-Seconds-Online-ADB-Installer-and-Updater-jp
-::    Copyright (C) 2023  reindex-ot
-::
-::    This program is free software: you can redistribute it and/or modify
-::    it under the terms of the GNU Affero General Public License as published
-::    by the Free Software Foundation, either version 3 of the License, or
-::    (at your option) any later version.
-::
-::    This program is distributed in the hope that it will be useful,
-::    but WITHOUT ANY WARRANTY; without even the implied warranty of
-::    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-::    GNU Affero General Public License for more details.
-::
-::    You should have received a copy of the GNU Affero General Public License
-::    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 @ECHO off
 cd /d %~dp0
 CLS
@@ -33,17 +18,27 @@ IF EXIST %USERPROFILE%\Desktop\ADB-Installer-Updater-Windows RMDIR /S /Q %USERPR
 md "%USERPROFILE%\Desktop\ADB-Installer-Updater-Windows"
 ECHO(
 ECHO platform-tools-latest-windows.zipをダウンロード中です...
-powershell -Command "Start-BitsTransfer -Source https://dl.google.com/android/repository/platform-tools-latest-windows.zip -Destination %USERPROFILE%\Desktop\ADB-Installer-Updater-Windows\platform-tools-latest-windows.zip"
+powershell -NoProfile -Command "[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; try { Invoke-WebRequest -Uri 'https://dl.google.com/android/repository/platform-tools-latest-windows.zip' -OutFile '%USERPROFILE%\Desktop\ADB-Installer-Updater-Windows\platform-tools-latest-windows.zip' -UseBasicParsing } catch { Write-Host $_.Exception.Message; exit 1 }"
+IF NOT EXIST "%USERPROFILE%\Desktop\ADB-Installer-Updater-Windows\platform-tools-latest-windows.zip" (
+    ECHO ダウンロードに失敗しました。ネットワーク接続を確認してください。
+    PAUSE
+    EXIT /B 1
+)
 ECHO ファイルを展開中です...
-powershell -Command "Expand-Archive -Force %USERPROFILE%\Desktop\ADB-Installer-Updater-Windows\platform-tools-latest-windows.zip %USERPROFILE%\Desktop\ADB-Installer-Updater-Windows"
+powershell -NoProfile -Command "Expand-Archive -Force '%USERPROFILE%\Desktop\ADB-Installer-Updater-Windows\platform-tools-latest-windows.zip' '%USERPROFILE%\Desktop\ADB-Installer-Updater-Windows'"
 RENAME "%USERPROFILE%\Desktop\ADB-Installer-Updater-Windows\platform-tools" "ADB"
 :: Edits - only Google USB Driver Package link below when update available... change from r13 to r14, r15 etc.
 :: Edits starts here
 ECHO(
 ECHO latest_usb_driver_windows.zipをダウンロード中です...
-powershell -Command "Start-BitsTransfer -Source https://dl.google.com/android/repository/latest_usb_driver_windows.zip -Destination %USERPROFILE%\Desktop\ADB-Installer-Updater-Windows\latest_usb_driver_windows.zip"
+powershell -NoProfile -Command "[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; try { Invoke-WebRequest -Uri 'https://dl.google.com/android/repository/latest_usb_driver_windows.zip' -OutFile '%USERPROFILE%\Desktop\ADB-Installer-Updater-Windows\latest_usb_driver_windows.zip' -UseBasicParsing } catch { Write-Host $_.Exception.Message; exit 1 }"
+IF NOT EXIST "%USERPROFILE%\Desktop\ADB-Installer-Updater-Windows\latest_usb_driver_windows.zip" (
+    ECHO ダウンロードに失敗しました。ネットワーク接続を確認してください。
+    PAUSE
+    EXIT /B 1
+)
 ECHO ファイルを展開中です...
-powershell -Command "Expand-Archive -Force %USERPROFILE%\Desktop\ADB-Installer-Updater-Windows\latest_usb_driver_windows.zip %USERPROFILE%\Desktop\ADB-Installer-Updater-Windows"
+powershell -NoProfile -Command "Expand-Archive -Force '%USERPROFILE%\Desktop\ADB-Installer-Updater-Windows\latest_usb_driver_windows.zip' '%USERPROFILE%\Desktop\ADB-Installer-Updater-Windows'"
 :: Edits ends here..
 RENAME "%USERPROFILE%\Desktop\ADB-Installer-Updater-Windows\usb_driver" "Driver"
 
